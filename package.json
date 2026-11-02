@@ -1,0 +1,86 @@
+{
+  "name": "repo-switcher",
+  "displayName": "Repo Switcher",
+  "description": "Switch between the git repositories below a configurable root folder, like the project dropdown in JetBrains IDEs.",
+  "version": "0.1.0",
+  "publisher": "NiklasBruening",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nb159451/repo-switcher.git"
+  },
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "repoSwitcher.switch",
+        "title": "Switch Repository",
+        "category": "Repo Switcher"
+      },
+      {
+        "command": "repoSwitcher.refresh",
+        "title": "Rescan Repositories",
+        "category": "Repo Switcher"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "repoSwitcher.switch",
+        "key": "ctrl+alt+r"
+      }
+    ],
+    "configuration": {
+      "title": "Repo Switcher",
+      "properties": {
+        "repoSwitcher.root": {
+          "type": "string",
+          "default": "~/repos",
+          "description": "Folder that is searched recursively for git repositories. `~` expands to the home directory."
+        },
+        "repoSwitcher.maxDepth": {
+          "type": "number",
+          "default": 6,
+          "minimum": 1,
+          "description": "How many folder levels below the root are searched."
+        },
+        "repoSwitcher.exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "node_modules",
+            "vendor",
+            "dist",
+            "build",
+            "target",
+            "venv",
+            ".venv"
+          ],
+          "description": "Folder names that are never searched. Hidden folders (starting with a dot) are always skipped."
+        }
+      }
+    }
+  },
+  "keywords": [
+    "git",
+    "repository",
+    "project",
+    "switcher",
+    "workspace",
+    "jetbrains"
+  ]
+}
