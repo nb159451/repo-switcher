@@ -76,6 +76,23 @@ function openRepo(dir, newWindow) {
   });
 }
 
+// Resolves to true (new window), false (this window) or undefined (cancelled).
+// Without an open folder there is nothing to replace, so this window is used.
+async function askNewWindow(dir) {
+  const mode = vscode.workspace.getConfiguration('repoSwitcher').get('openIn');
+  if (mode === 'newWindow') return true;
+  if (mode === 'thisWindow' || !currentFolder()) return false;
+  // A quick pick instead of a modal dialog: themed like VS Code and no system sound.
+  const choice = await vscode.window.showQuickPick(
+    [
+      { label: '$(window) This Window', newWindow: false },
+      { label: '$(empty-window) New Window', newWindow: true },
+    ],
+    { title: `Open "${path.basename(dir)}"`, placeHolder: dir },
+  );
+  return choice?.newWindow;
+}
+
 const newWindowButton = {
   iconPath: new vscode.ThemeIcon('empty-window'),
   tooltip: 'Open in new window',
@@ -106,10 +123,12 @@ async function showPicker() {
     .then(fill, (err) => vscode.window.showErrorMessage(`Repo Switcher: ${err.message}`))
     .finally(() => (picker.busy = false));
 
-  picker.onDidAccept(() => {
+  picker.onDidAccept(async () => {
     const item = picker.selectedItems[0];
     picker.hide();
-    if (item && item.dir !== current) openRepo(item.dir, false);
+    if (!item || item.dir === current) return;
+    const newWindow = await askNewWindow(item.dir);
+    if (newWindow !== undefined) openRepo(item.dir, newWindow);
   });
   picker.onDidTriggerItemButton(({ item }) => {
     picker.hide();

@@ -51,6 +51,17 @@
           "default": "~/repos",
           "description": "Folder that is searched recursively for git repositories. `~` expands to the home directory."
         },
+        "repoSwitcher.openIn": {
+          "type": "string",
+          "enum": ["ask", "thisWindow", "newWindow"],
+          "enumDescriptions": [
+            "Ask every time whether to open the repository in this window or a new one.",
+            "Always open the repository in this window.",
+            "Always open the repository in a new window."
+          ],
+          "default": "ask",
+          "description": "Where a repository picked from the list is opened. The window button next to an entry always opens a new window."
+        },
         "repoSwitcher.maxDepth": {
           "type": "number",
           "default": 6,

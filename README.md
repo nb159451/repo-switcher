@@ -6,7 +6,7 @@ Repo Switcher searches a root folder (default `~/repos`) for git repositories an
 
 ## Features
 
-- **One click to switch:** pick a repository to open it in the current window, or use the window button next to an entry to open it in a new one.
+- **One click to switch:** pick a repository and choose *This Window* or *New Window*, or use the window button next to an entry to open it in a new window right away.
 - **Finds repositories in subfolders:** the root is searched recursively, so grouped layouts such as `~/repos/clients/acme/website` work.
 - **No nested repositories:** the search stops at the first repository it finds on each path. Submodules, vendored checkouts and other repositories inside a repository are not listed.
 - **Fast:** hidden folders, symlinks and common dependency folders (`node_modules`, `vendor`, …) are skipped.
@@ -25,6 +25,7 @@ Repo Switcher searches a root folder (default `~/repos`) for git repositories an
 | Setting | Default | Description |
 | --- | --- | --- |
 | `repoSwitcher.root` | `~/repos` | Folder that is searched for repositories. `~` expands to your home directory. |
+| `repoSwitcher.openIn` | `ask` | Where a picked repository opens: `ask`, `thisWindow` or `newWindow`. |
 | `repoSwitcher.maxDepth` | `6` | How many folder levels below the root are searched. |
 | `repoSwitcher.exclude` | `node_modules`, `vendor`, `dist`, `build`, `target`, `venv`, `.venv` | Folder names that are never searched. Hidden folders are always skipped. |
 
