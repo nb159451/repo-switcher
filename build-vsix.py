@@ -23,6 +23,8 @@ repo_links = "".join(
     f'\n      <Property Id="Microsoft.VisualStudio.Services.Links.{kind}" Value="{escape(repo)}" />'
     for kind in ("Source", "GitHub")
 ) if repo else ""
+if pkg.get("qna") is False:
+    repo_links += '\n      <Property Id="Microsoft.VisualStudio.Services.EnableMarketplaceQnA" Value="false" />'
 
 manifest = f"""<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">

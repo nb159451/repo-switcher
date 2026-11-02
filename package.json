@@ -9,6 +9,7 @@
     "type": "git",
     "url": "https://github.com/nb159451/repo-switcher.git"
   },
+  "qna": false,
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.80.0"
